@@ -1,7 +1,8 @@
 {
   "require": {
     "php": ">=5.4",
-    "johnpbloch/wordpress": "4.8.1"
+    "johnpbloch/wordpress": "4.8.1",
+    "cosenary/instagram": "dev-master"
   },
   "extra": {
     "installer-paths": {
@@ -22,5 +23,16 @@
       "cp wp/index.php ./index.php",
       "sed -i \"s/\\/wp-blog-header/\\/wp\\/wp-blog-header/g\" index.php"
     ]
-  }
+  },
+  "autoload": {
+    "psr-4": {
+      "Evaskeramik\\": "wp-content/themes/evaskeramik-v2/libraries"
+    }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/florianbeer/Instagram-PHP-API"
+    }
+  ]
 }

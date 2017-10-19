@@ -4,8 +4,59 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4388e1c0a219113368a98a250e15ea13",
+    "content-hash": "fb9906716221538ab6eff927743165f7",
     "packages": [
+        {
+            "name": "cosenary/instagram",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/florianbeer/Instagram-PHP-API.git",
+                "reference": "e282c53e94a92e912c9cd92e1b55032f842dbc32"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/florianbeer/Instagram-PHP-API/zipball/e282c53e94a92e912c9cd92e1b55032f842dbc32",
+                "reference": "e282c53e94a92e912c9cd92e1b55032f842dbc32",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MetzWeb\\Instagram\\": "src"
+                }
+            },
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Metz",
+                    "email": "christian-metz1@gmx.net",
+                    "homepage": "http://metzweb.net"
+                }
+            ],
+            "description": "An easy-to-use PHP Class for accessing Instagram's API.",
+            "homepage": "https://github.com/cosenary/Instagram-PHP-API",
+            "keywords": [
+                "api",
+                "instagram"
+            ],
+            "support": {
+                "source": "https://github.com/florianbeer/Instagram-PHP-API/tree/master",
+                "issues": "https://github.com/florianbeer/Instagram-PHP-API/issues"
+            },
+            "time": "2016-10-26 09:05:24"
+        },
         {
             "name": "johnpbloch/wordpress",
             "version": "4.8.1",
@@ -135,7 +186,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "cosenary/instagram": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
