@@ -17,7 +17,7 @@ wp-content/uploads/*
 
 # WordPress
 wp
-index.php
+# index.php
 .htaccess
 
 # Composer
