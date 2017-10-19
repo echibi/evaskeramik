@@ -20,9 +20,15 @@ wp
 # index.php
 .htaccess
 
+# Compiled files
+wp-content/themes/evaskeramik-v2/dist
+
 # Composer
 vendor/*
 !vendor/.gitkeep
 
 # Docker
 docker/app_data
+
+# OS
+Thumbs.db
