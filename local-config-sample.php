@@ -14,3 +14,9 @@ define( 'WP_HOME', '//localhost:8080' );
 define( 'WP_SITEURL', '//localhost:8080/wp' );
 define( 'WP_CONTENT_URL', '//' . $_SERVER['HTTP_HOST'] . '/wp-content' );
 define( 'WP_CONTENT_DIR', dirname( __FILE__ ) . '/wp-content' );
+
+
+define( 'instagram_redirect_url', '' );
+define( 'instagram_client_id', '' );
+define( 'instagram_client_secret', '' );
+define( 'instagram_access_token', '' );
