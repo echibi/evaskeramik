@@ -9,6 +9,7 @@
 namespace Evaskeramik\Models;
 
 use MetzWeb\Instagram\Instagram;
+use phpFastCache\Helper\Psr16Adapter;
 
 class InstagramModel {
 
@@ -80,27 +81,30 @@ class InstagramModel {
 	 * @return array Structured feed data.
 	 */
 	public function get_user_feed( $access_token, $instagram_user_id ) {
-
-		// Get the auth token with the following function.
-		// $data = $instagram->getOAuthToken( $client_code );
-
-		$this->instagram_api->setAccessToken( $access_token );
-		//$this->instagram_api->_makeCall('users/' . $id . '/media/recent', ($id === 'self'), array('count' => $limit));
-		$result = $this->instagram_api->getUserMedia( $instagram_user_id, $this->limit );
-
-		$data = false;
-		if ( isset( $result->data ) ) {
-			$data = $result->data; // Here we will store the data
+		$response     = array();
+		$Psr16Adapter = new Psr16Adapter( 'files' );
+		$key          = $instagram_user_id . '_' . $this->limit;
+		if ( ! $Psr16Adapter->has( $key ) ) {
+			// Setter action
+			$this->instagram_api->setAccessToken( $access_token );
+			//$this->instagram_api->_makeCall('users/' . $id . '/media/recent', ($id === 'self'), array('count' => $limit));
+			$result = $this->instagram_api->getUserMedia( $instagram_user_id, $this->limit );
+			/*	If we need pagination use do-while
+			do {
+				$result = $instagram->pagination( $result );
+			} while ( $result );
+			*/
+			if ( isset( $result->data ) ) {
+				// Here we will store the data in cache
+				$response = $this->_format_instagram_data( $result->data );
+				$Psr16Adapter->set( $key, $response, 300 );// 5 minutes
+			}
+		} else {
+			// Getter action
+			$response = $Psr16Adapter->get( $key );
 		}
-		/*	If we need pagination use do-while
-		do {
-			$result = $instagram->pagination( $result );
-		} while ( $result );
-		*/
 
-		$struct_data = $this->_format_instagram_data( $data );
-
-		return $struct_data;
+		return $response;
 	}
 
 	/**

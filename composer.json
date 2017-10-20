@@ -2,7 +2,8 @@
   "require": {
     "php": ">=5.4",
     "johnpbloch/wordpress": "4.8.1",
-    "cosenary/instagram": "dev-master"
+    "cosenary/instagram": "dev-master",
+    "phpFastCache/phpFastCache": "^6.0"
   },
   "extra": {
     "installer-paths": {
