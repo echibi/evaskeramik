@@ -9,6 +9,7 @@
 namespace Evaskeramik\Controllers;
 
 use Evaskeramik\Models\InstagramModel;
+use phpFastCache\Helper\Psr16Adapter;
 
 class InstagramController {
 
@@ -29,10 +30,22 @@ class InstagramController {
 			$limit
 		);
 
-		return $instaModel->get_user_feed( instagram_access_token, '5618304533' );
+		$user_id      = '5618304533';
+		$Psr16Adapter = new Psr16Adapter( 'files' );
+		$key          = $user_id . '_' . $limit;
+		if ( ! $Psr16Adapter->has( $key ) ) {
+			// Here we will store the data in cache
+			$response = $instaModel->get_user_feed( instagram_access_token, $user_id );
+			$Psr16Adapter->set( $key, $response, 3600 );// 1 h
+		} else {
+			// Getter action
+			$response = $Psr16Adapter->get( $key );
+		}
+
+		return $response;
 	}
 
-	public function getUserInfo(){
+	public function getUserInfo() {
 
 	}
 }

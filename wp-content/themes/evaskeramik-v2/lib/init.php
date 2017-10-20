@@ -18,9 +18,11 @@ function setup() {
 
 	// Register wp_nav_menu() menus
 	// http://codex.wordpress.org/Function_Reference/register_nav_menus
-	register_nav_menus( [
-		'primary_navigation' => __( 'Primary Navigation', 'sage' )
-	] );
+	register_nav_menus(
+		[
+			'primary_navigation' => __( 'Primary Navigation', 'sage' )
+		]
+	);
 
 	// Add post thumbnails
 	// http://codex.wordpress.org/Post_Thumbnails
@@ -39,6 +41,8 @@ function setup() {
 	// Tell the TinyMCE editor to use a custom stylesheet
 	add_editor_style( Assets\asset_path( 'styles/editor-style.css' ) );
 
+	add_image_size( 'huge', 1680, 0, false );
+
 }
 
 add_action( 'after_setup_theme', __NAMESPACE__ . '\\setup' );
@@ -47,6 +51,7 @@ add_action( 'after_setup_theme', __NAMESPACE__ . '\\setup' );
 function add_excerpts_to_pages() {
 	add_post_type_support( 'page', 'excerpt' );
 }
+
 add_action( 'init', __NAMESPACE__ . '\\add_excerpts_to_pages' );
 
 /**
@@ -63,14 +68,16 @@ function widgets_init() {
 		'after_title'   => '</h3>'
 	] );
 	*/
-	register_sidebar( [
-		'name'          => __( 'Footer', 'sage' ),
-		'id'            => 'sidebar-footer',
-		'before_widget' => '<section class="widget %1$s %2$s">',
-		'after_widget'  => '</section>',
-		'before_title'  => '<h3>',
-		'after_title'   => '</h3>'
-	] );
+	register_sidebar(
+		[
+			'name'          => __( 'Footer', 'sage' ),
+			'id'            => 'sidebar-footer',
+			'before_widget' => '<section class="widget %1$s %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h3>',
+			'after_title'   => '</h3>'
+		]
+	);
 }
 
 add_action( 'widgets_init', __NAMESPACE__ . '\\widgets_init' );

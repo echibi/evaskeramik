@@ -1,0 +1,23 @@
+.home {
+	.header {
+		margin:0;
+	}
+	.main {
+		padding:0;
+	}
+	.wrap {
+		max-width: none;
+	}
+}
+
+.frontpage-content-wrap{
+	max-width: 600px;
+	margin:4em auto 6em;
+	padding: 0 2em;
+	text-align: center;
+}
+.frontpage-heading {
+	line-height: 1.5;
+	font-size:1.25rem;
+	text-transform: uppercase;
+}

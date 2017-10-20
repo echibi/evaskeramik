@@ -9,7 +9,6 @@
 namespace Evaskeramik\Models;
 
 use MetzWeb\Instagram\Instagram;
-use phpFastCache\Helper\Psr16Adapter;
 
 class InstagramModel {
 
@@ -81,27 +80,17 @@ class InstagramModel {
 	 * @return array Structured feed data.
 	 */
 	public function get_user_feed( $access_token, $instagram_user_id ) {
-		$response     = array();
-		$Psr16Adapter = new Psr16Adapter( 'files' );
-		$key          = $instagram_user_id . '_' . $this->limit;
-		if ( ! $Psr16Adapter->has( $key ) ) {
-			// Setter action
-			$this->instagram_api->setAccessToken( $access_token );
-			//$this->instagram_api->_makeCall('users/' . $id . '/media/recent', ($id === 'self'), array('count' => $limit));
-			$result = $this->instagram_api->getUserMedia( $instagram_user_id, $this->limit );
-			/*	If we need pagination use do-while
-			do {
-				$result = $instagram->pagination( $result );
-			} while ( $result );
-			*/
-			if ( isset( $result->data ) ) {
-				// Here we will store the data in cache
-				$response = $this->_format_instagram_data( $result->data );
-				$Psr16Adapter->set( $key, $response, 300 );// 5 minutes
-			}
-		} else {
-			// Getter action
-			$response = $Psr16Adapter->get( $key );
+		$response = array();
+		$this->instagram_api->setAccessToken( $access_token );
+		$result = $this->instagram_api->getUserMedia( $instagram_user_id, $this->limit );
+		/*	If we need pagination use do-while
+		do {
+			$result = $instagram->pagination( $result );
+		} while ( $result );
+		*/
+		if ( isset( $result->data ) ) {
+			// Here we will store the data in cache
+			$response = $this->_format_instagram_data( $result->data );
 		}
 
 		return $response;
@@ -154,7 +143,7 @@ class InstagramModel {
 		foreach ( $raw_data as $item ) {
 			$key                      = 'instagram_' . $item->id;
 			$data[$key]['id']         = $item->id;
-			$data[$key]['text']       = $item->caption->text;
+			$data[$key]['text']       = isset( $item->caption->text ) ? $item->caption->text : '';
 			$data[$key]['type']       = 'instagram';
 			$data[$key]['created_at'] = $item->created_time;
 			$data[$key]['url']        = $item->link;

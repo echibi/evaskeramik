@@ -9,6 +9,9 @@ img {
 .wrap {
 	max-width: $site-width + $grid-gutter-width;
 }
+.home .wrap {
+	max-width: 1000px;
+}
 
 
 h1 {
